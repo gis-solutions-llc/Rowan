@@ -71,7 +71,7 @@
     .legend {
       background-color: #fff;
       border-radius: 3px;
-      bottom: 250px;
+      bottom: 50px;
       box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
       font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
       padding: 10px;
@@ -107,9 +107,9 @@
       padding: 10px;
       box-shadow: 0 1px 2px rgba(0, 0, 0, 0.10);
       line-height: 18px;
-      height: 125px;
+      height: 170px;
       margin-bottom: 40px;
-      width: 120px;
+      width: 160px;
     }
 
     .legend-key {
@@ -227,8 +227,8 @@
       // make a pointer cursor
       map.getCanvas().style.cursor = 'default';
       // define layer names
-      var layers = ['RES <= 2 acres', 'RES >= 2 acres', 'NONRES', 'Flood'];
-      var colors = ['#abf39b', '#3ca527', '#f8e663', '#00acf0'];
+      var layers = ['RES <= 2 acres', 'RES >= 2 acres', 'Res over2ac less 5units', 'Res under 2ac less 5units', 'Res over 2ac 6-12units', 'Res under 2ac 6-12units','NONRES', 'Flood'];
+      var colors = ['#abf39b', '#3ca527', '#a86060', '#f0a747' , '#743f97' , '#9474b4' , '#ffff00' , '#00acf0'];
       // create legend
       for (i = 0; i < layers.length; i++) {
         var layer = layers[i];
@@ -248,7 +248,7 @@
       // change info window on hover
       map.on('mousemove', function (e) {
         const buildings = map.queryRenderedFeatures(e.point, {
-          layers: ['RES less 2 acres', 'RES more 2 acres', 'NONRES']
+          layers: ['RES less 2 acres', 'RES more 2 acres', 'Res over 2ac less 5units' , 'Res under 2ac less 5units', 'Res over 2ac 6 to 12units', 'Res under 2ac 6 to 12units','NONRES']
         });
         if (activeItem) {
           document.getElementById('pd').innerHTML =
@@ -279,7 +279,7 @@
 
       map.on('click', function (e) {
         const buildings = map.queryRenderedFeatures(e.point, {
-          layers: ['RES less 2 acres', 'RES more 2 acres', 'NONRES']
+          layers: ['RES less 2 acres', 'RES more 2 acres', 'Res over 2ac less 5units' , 'Res under 2ac less 5units', 'Res over 2ac 6 to 12units', 'Res under 2ac 6 to 12units','NONRES']
         });
         if (activeItem) {
           if (buildings.length > 0) {
@@ -353,12 +353,114 @@
       layers.appendChild(link);
     }
 
+    var toggleableLayerIds = ['Res over 2ac less 5units'];
+    for (var i = 0; i < toggleableLayerIds.length; i++) {
+      var id = toggleableLayerIds[i];
+      var link = document.createElement('a');
+      link.href = '#';
+      link.className = 'active';
+      link.textContent = id;
+      link.onclick = function (e) {
+        var clickedLayer = this.textContent;
+        e.preventDefault();
+        e.stopPropagation();
+
+        var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
+
+        if (visibility === 'visible') {
+          map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+          this.className = '';
+        } else {
+          this.className = 'active';
+          map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+        }
+      };
+      var layers = document.getElementById('menu');
+      layers.appendChild(link);
+    }
+
+    var toggleableLayerIds = ['Res under 2ac less 5units'];
+    for (var i = 0; i < toggleableLayerIds.length; i++) {
+      var id = toggleableLayerIds[i];
+      var link = document.createElement('a');
+      link.href = '#';
+      link.className = 'active';
+      link.textContent = id;
+      link.onclick = function (e) {
+        var clickedLayer = this.textContent;
+        e.preventDefault();
+        e.stopPropagation();
+
+        var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
+
+        if (visibility === 'visible') {
+          map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+          this.className = '';
+        } else {
+          this.className = 'active';
+          map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+        }
+      };
+      var layers = document.getElementById('menu');
+      layers.appendChild(link);
+    }
 
 
-    
+    var toggleableLayerIds = ['Res over 2ac 6 to 12units'];
+    for (var i = 0; i < toggleableLayerIds.length; i++) {
+      var id = toggleableLayerIds[i];
+      var link = document.createElement('a');
+      link.href = '#';
+      link.className = 'active';
+      link.textContent = id;
+      link.onclick = function (e) {
+        var clickedLayer = this.textContent;
+        e.preventDefault();
+        e.stopPropagation();
 
+        var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
+
+        if (visibility === 'visible') {
+          map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+          this.className = '';
+        } else {
+          this.className = 'active';
+          map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+        }
+      };
+      var layers = document.getElementById('menu');
+      layers.appendChild(link);
+    }
+	
+	var toggleableLayerIds = ['Res under 2ac 6 to 12units'];
+    for (var i = 0; i < toggleableLayerIds.length; i++) {
+      var id = toggleableLayerIds[i];
+      var link = document.createElement('a');
+      link.href = '#';
+      link.className = 'active';
+      link.textContent = id;
+      link.onclick = function (e) {
+        var clickedLayer = this.textContent;
+        e.preventDefault();
+        e.stopPropagation();
+
+        var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
+
+        if (visibility === 'visible') {
+          map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+          this.className = '';
+        } else {
+          this.className = 'active';
+          map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+        }
+      };
+      var layers = document.getElementById('menu');
+      layers.appendChild(link);
+    }
+	
+	
+	
     var toggleableLayerIds = ['NONRES'];
-
     for (var i = 0; i < toggleableLayerIds.length; i++) {
       var id = toggleableLayerIds[i];
 
@@ -390,7 +492,6 @@
 
 
     var toggleableLayerIds = ['CTYBDRY'];
-
     for (var i = 0; i < toggleableLayerIds.length; i++) {
       var id = toggleableLayerIds[i];
 
@@ -456,7 +557,6 @@
       */
 
     var toggleableLayerIds = ['Flood'];
-
     for (var i = 0; i < toggleableLayerIds.length; i++) {
       var id = toggleableLayerIds[i];
 
